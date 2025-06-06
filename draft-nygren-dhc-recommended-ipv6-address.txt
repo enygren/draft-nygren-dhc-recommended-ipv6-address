@@ -19,6 +19,17 @@ Abstract
    suggest specific IPv6 addresses that hosts should preferentially use
    when configuring addresses within the assigned prefix.
 
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Dynamic Host
+   Configuration Working Group mailing list (dhcwg@ietf.org), which is
+   archived at https://mailarchive.ietf.org/arch/browse/dhcwg/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/enygren/draft-nygren-dhc-recommended-ipv6-address.
+
 Status of This Memo
 
    This Internet-Draft is submitted in full conformance with the
