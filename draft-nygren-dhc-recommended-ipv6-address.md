@@ -29,7 +29,7 @@ informative:
   RFC7824:
   RFC8273:
   RFC4941:
-  
+
 --- abstract
 
 This document defines a new DHCPv6 option for communicating one or more recommended /128 IPv6 address to hosts within an assigned prefix. The Recommended Address option allows DHCPv6 servers to suggest specific IPv6 addresses that hosts should preferentially use when configuring addresses within the assigned prefix.
