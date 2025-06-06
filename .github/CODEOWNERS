@@ -1,0 +1,4 @@
+# Automatically generated CODEOWNERS
+# Regenerate with `make update-codeowners`
+draft-nygren-dhc-recommended-ipv6-address.md erik+ietf@nygren.org
+draft-todo-yourname-protocol.md erik+ietf@nygren.org

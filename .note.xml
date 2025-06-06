@@ -1,0 +1,7 @@
+<note title="Discussion Venues" removeInRFC="true">
+<t>Discussion of this document takes place on the
+    Dynamic Host Configuration Working Group mailing list (dhcwg@ietf.org),
+    which is archived at <eref target="https://mailarchive.ietf.org/arch/browse/dhcwg/"/>.</t>
+<t>Source for this draft and an issue tracker can be found at
+    <eref target="https://github.com/enygren/draft-nygren-dhc-recommended-ipv6-address"/>.</t>
+</note>
