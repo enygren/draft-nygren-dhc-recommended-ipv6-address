@@ -341,6 +341,10 @@ Appendix A.  Open Questions
    *  What name should we use for this option?  OPTION_RECADDR?
       OPTION_RECOMMENDED_ADDRESS?
 
+   *  When should we use "client" vs "host"?
+
+   *  Do we need more description of use-cases and purpose?
+
 Author's Address
 
    Erik Nygren
