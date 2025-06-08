@@ -165,3 +165,5 @@ Some open questions for discussions include:
 * Would we want flags instead of priority?
 * Should we allow prefixes in-addition to /128 along with labels for those prefixes? For example to signal things like which ranges should be sub-delegated for use by Docker, etc?
 * What name should we use for this option?  OPTION\_RECADDR? OPTION\_RECOMMENDED\_ADDRESS?
+* When should we use "client" vs "host"?
+* Do we need more description of use-cases and purpose?
