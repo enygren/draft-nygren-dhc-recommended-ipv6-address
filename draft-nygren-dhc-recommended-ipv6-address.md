@@ -155,3 +155,13 @@ This document requests IANA to assign a new DHCPv6 option code for the Recommend
 
 --- back
 
+# Open Questions
+
+NOTE TO RFC EDITOR: to be removed before publication.
+
+Some open questions for discussions include:
+
+* Is the priority useful?  Should we call it priority or preference?  Should it be 8-bits or just a boolean flag? Should we remove it altogether?
+* Would we want flags instead of priority?
+* Should we allow prefixes in-addition to /128 along with labels for those prefixes? For example to signal things like which ranges should be sub-delegated for use by Docker, etc?
+* What name should we use for this option?  OPTION\_RECADDR? OPTION\_RECOMMENDED\_ADDRESS?
