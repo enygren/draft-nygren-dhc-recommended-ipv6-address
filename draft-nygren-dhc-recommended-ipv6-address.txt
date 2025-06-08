@@ -4,8 +4,8 @@
 
 Network Working Group                                          E. Nygren
 Internet-Draft                                       Akamai Technologies
-Intended status: Standards Track                             6 June 2025
-Expires: 8 December 2025
+Intended status: Standards Track                             8 June 2025
+Expires: 10 December 2025
 
 
                  DHCPv6 Recommended IPv6 Address Option
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 December 2025.
+   This Internet-Draft will expire on 10 December 2025.
 
 Copyright Notice
 
@@ -77,6 +77,7 @@ Table of Contents
    10. References
      10.1.  Normative References
      10.2.  Informative References
+   Appendix A.  Open Questions
    Author's Address
 
 1.  Introduction
@@ -320,6 +321,25 @@ Table of Contents
    [RFC8273]  Brzozowski, J. and G. Van de Velde, "Unique IPv6 Prefix
               per Host", RFC 8273, DOI 10.17487/RFC8273, December 2017,
               <https://www.rfc-editor.org/rfc/rfc8273>.
+
+Appendix A.  Open Questions
+
+   NOTE TO RFC EDITOR: to be removed before publication.
+
+   Some open questions for discussions include:
+
+   *  Is the priority useful?  Should we call it priority or preference?
+      Should it be 8-bits or just a boolean flag?  Should we remove it
+      altogether?
+
+   *  Would we want flags instead of priority?
+
+   *  Should we allow prefixes in-addition to /128 along with labels for
+      those prefixes?  For example to signal things like which ranges
+      should be sub-delegated for use by Docker, etc?
+
+   *  What name should we use for this option?  OPTION_RECADDR?
+      OPTION_RECOMMENDED_ADDRESS?
 
 Author's Address
 
