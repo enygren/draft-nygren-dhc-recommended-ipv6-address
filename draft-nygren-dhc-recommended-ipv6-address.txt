@@ -4,8 +4,8 @@
 
 Network Working Group                                          E. Nygren
 Internet-Draft                                       Akamai Technologies
-Intended status: Standards Track                             8 June 2025
-Expires: 10 December 2025
+Intended status: Standards Track                             3 July 2025
+Expires: 4 January 2026
 
 
                  DHCPv6 Recommended IPv6 Address Option
@@ -16,7 +16,7 @@ Abstract
    This document defines a new DHCPv6 option for communicating one or
    more recommended /128 IPv6 address to hosts within an assigned
    prefix.  The Recommended Address option allows DHCPv6 servers to
-   suggest specific IPv6 addresses that hosts should preferentially use
+   suggest specific IPv6 addresses that hosts should additionally use
    when configuring addresses within the assigned prefix.
 
 Discussion Venues
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 December 2025.
+   This Internet-Draft will expire on 4 January 2026.
 
 Copyright Notice
 
@@ -77,7 +77,10 @@ Table of Contents
    10. References
      10.1.  Normative References
      10.2.  Informative References
-   Appendix A.  Open Questions
+   Appendix A.  Acknowledgements
+   Appendix B.  Open Questions
+   Appendix C.  Change History
+     C.1.  Prior to -00
    Author's Address
 
 1.  Introduction
@@ -90,8 +93,9 @@ Table of Contents
 
    This document defines the Recommended Address option, which can be
    included within OPTION_IAPREFIX options to suggest one or more
-   specific IPv6 addresses that clients should preferentially configure
-   when using the associated prefix.
+   specific IPv6 addresses that clients should configure when using the
+   associated prefix.  These do not preclude the client from using other
+   addresses within the prefix, such as for temporary addressing.
 
    This is intended for use in managed environments such as datacenters
    and cloud providers where the operator is configuring a host that
@@ -118,10 +122,6 @@ Table of Contents
    servers to suggest one or more specific IPv6 addresses within an
    assigned prefix that host clients should use on the their interface.
 
-   When multiple addresses are provided, a priority value indicates
-   which should be preferred as a default source address, enabling
-   operational transitions such as renumbering.
-
 3.1.  Option Format
 
    The format of the Recommended Address option is:
@@ -136,8 +136,6 @@ Table of Contents
    |                                                               |
    |                                                               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  priority   |
-   +-+-+-+-+-+-+-+
 
    Where:
 
@@ -147,10 +145,6 @@ Table of Contents
 
    recommended-address:  A 128-bit IPv6 address that the server
       recommends the client use
-
-   priority:  An 8-bit unsigned integer indicating the relative priority
-      for this recommended address to be used as the default source
-      address.  Higher values indicate higher priority.
 
 3.2.  Option Usage
 
@@ -165,10 +159,6 @@ Table of Contents
    Servers MUST NOT include Recommended Address options with addresses
    outside the associated prefix.
 
-   The priority field allows servers to indicate relative preferences
-   when multiple addresses are recommended.  Priority values are
-   relative only within the context of a single OPTION_IAPREFIX option.
-
 4.  DHCPv6 Server Behavior
 
    DHCPv6 servers MAY include OPTION_RECADDR within OPTION_IAPREFIX
@@ -178,24 +168,16 @@ Table of Contents
    the prefix bounds of the enclosing OPTION_IAPREFIX option before
    including them in responses.
 
-   When including multiple OPTION_RECADDR options within a single
-   OPTION_IAPREFIX option, servers SHOULD assign the highest priority
-   value to the option that they wish to see in active use as a default
-   source address.  Changing the primary recommended address may be
-   performed by introducing a new address with a lower priority value,
-   then by switching it to be the highest priority, and then by removing
-   the old address.
-
-   Servers SHOULD avoid providing multiple addresses with the same
-   priority.
-
    Servers SHOULD avoid providing recommended addresses that would fall
    within those assigned to EUI-64 SLAAC addresses.
 
    Servers MUST NOT require clients to use recommended addresses,
    although operators of some tightly managed environments may set
-   expectations that using the highest priority recommended address is
-   required for proper operational function.
+   expectations that accepting connections on recommended address is
+   required for proper operational function.  Operators MUST NOT assume
+   that clients will use only recommended addresses as source addresses
+   from within the prefix as clients remain free to use the entire
+   delegated prefix for outbound connections.
 
 5.  DHCPv6 Client Behavior
 
@@ -217,15 +199,9 @@ Table of Contents
    no longer contains it, the client SHOULD remove the address from its
    interface.
 
-   When multiple Recommended Address options are present within an
-   OPTION_IAPREFIX option, clients SHOULD use the one with the highest
-   priority as the default source address.  If more than two recommended
-   addresses are provided, clients MAY choose to configure only the two
-   with the highest priority.
-
-   Clients MAY also assign SLAAC addresses within the prefix, but the
-   highest priority recommended address should be given preference for
-   default source address selection.
+   Clients MAY also assign SLAAC addresses such as temporary addresses
+   within the prefix.  While clients MAY use Recommended Addresses as a
+   preferred source address they are not required to do so.
 
 6.  Relationship to Prefix Exclude Option
 
@@ -260,7 +236,8 @@ Table of Contents
    discussion of these properties.  As Recommended Addresses are under
    server control and may have less entropy, they may be more
    predictable within the /64 than addresses under the clients control
-   to select.
+   to select.  Clients configured to use [RFC4941] Privacy Addresses or
+   similar scheme may chose to prefer those as a default source address.
 
 9.  IANA Considerations
 
@@ -322,17 +299,16 @@ Table of Contents
               per Host", RFC 8273, DOI 10.17487/RFC8273, December 2017,
               <https://www.rfc-editor.org/rfc/rfc8273>.
 
-Appendix A.  Open Questions
+Appendix A.  Acknowledgements
+
+   Thank you to Lorenzo Colitti and others for their feedback and
+   suggestions on this document.
+
+Appendix B.  Open Questions
 
    NOTE TO RFC EDITOR: to be removed before publication.
 
    Some open questions for discussions include:
-
-   *  Is the priority useful?  Should we call it priority or preference?
-      Should it be 8-bits or just a boolean flag?  Should we remove it
-      altogether?
-
-   *  Would we want flags instead of priority?
 
    *  Should we allow prefixes in-addition to /128 along with labels for
       those prefixes?  For example to signal things like which ranges
@@ -344,6 +320,16 @@ Appendix A.  Open Questions
    *  When should we use "client" vs "host"?
 
    *  Do we need more description of use-cases and purpose?
+
+Appendix C.  Change History
+
+   NOTE TO RFC EDITOR: to be removed before publication.
+
+C.1.  Prior to -00
+
+   *  Removed priority and made it very clear that this is in-addition
+      to temporary addresses and does not require clients to use these
+      as a source address.
 
 Author's Address
 
