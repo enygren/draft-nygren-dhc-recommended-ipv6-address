@@ -217,11 +217,11 @@ Table of Contents
    associated with the OPTION_IAPREFIX.
 
    If a client had previously received a Recommended Address for a
-   prefix but an subsequent advertisement for the same OPTION_IAPREFIX
-   no longer contains it, the client SHOULD deprecate the address from
-   its interface, such as by setting the preferred-lifetime of the
-   address to 0 but leave the valid-lifetime as the remaining lifetime
-   of the associated DHCPv6 lease.
+   prefix but a subsequent advertisement for the same OPTION_IAPREFIX no
+   longer contains it, the client SHOULD deprecate the address from its
+   interface, such as by setting the preferred-lifetime of the address
+   to 0 but leave the valid-lifetime as the remaining lifetime of the
+   associated DHCPv6 lease.
 
 6.  Relationship to Prefix Exclude Option
 
@@ -248,7 +248,7 @@ Table of Contents
 
    The alternatives for having both a IA_PD /64 and an IA_NA /128 for a
    client host is to use either a larger /63 prefix (with half of it
-   only being used sparselyu for the /128) or to allocate the /64 and
+   only being used sparsely for the /128) or to allocate the /64 and
    /128 from disjoint space.  This latter scenario increases FIB count.
    Both of these alternatives require clients to support both IA_PD and
    IA_NA.

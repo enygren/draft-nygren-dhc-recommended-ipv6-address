@@ -1324,7 +1324,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-address-lifetime-and-remova" class="section-name selfRef">Address Lifetime and Removal</a>
         </h3>
 <p id="section-5.1-1">The lifetime of the Recommended Addresses are associated with that of the containing OPTION_IAPREFIX and its associated lease. Clients <span class="bcp14">SHOULD</span> set the valid lifetime and preferred lifetime (<span>[<a href="#RFC4862" class="cite xref">RFC4862</a>]</span>) for Recommended Addresses to the remaining lifetime of the DHCPv6 lease associated with the OPTION_IAPREFIX.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">If a client had previously received a Recommended Address for a prefix but an subsequent advertisement for the same OPTION_IAPREFIX no longer contains it, the client <span class="bcp14">SHOULD</span> deprecate the address from its interface, such as by setting the preferred-lifetime of the address to 0 but leave the valid-lifetime as the remaining lifetime of the associated DHCPv6 lease.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">If a client had previously received a Recommended Address for a prefix but a subsequent advertisement for the same OPTION_IAPREFIX no longer contains it, the client <span class="bcp14">SHOULD</span> deprecate the address from its interface, such as by setting the preferred-lifetime of the address to 0 but leave the valid-lifetime as the remaining lifetime of the associated DHCPv6 lease.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1353,7 +1353,7 @@ An alternate proposal was to use IA_NA within an excluded prefix, but that was t
           <p id="section-7-2.2.1">Client hosts that support IA_PD (such as IPv6 CE routers) and which also need an address on which they can be managed.<a href="#section-7-2.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-7-3">The alternatives for having both a IA_PD /64 and an IA_NA /128 for a client host is to use either a larger /63 prefix (with half of it only being used sparselyu for the /128) or to allocate the /64 and /128 from disjoint space. This latter scenario increases FIB count.  Both of these alternatives require clients to support both IA_PD and IA_NA.<a href="#section-7-3" class="pilcrow">¶</a></p>
+<p id="section-7-3">The alternatives for having both a IA_PD /64 and an IA_NA /128 for a client host is to use either a larger /63 prefix (with half of it only being used sparsely for the /128) or to allocate the /64 and /128 from disjoint space. This latter scenario increases FIB count.  Both of these alternatives require clients to support both IA_PD and IA_NA.<a href="#section-7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
