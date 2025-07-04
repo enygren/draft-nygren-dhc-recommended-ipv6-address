@@ -115,7 +115,7 @@ Clients MAY also assign SLAAC addresses such as temporary addresses within the p
 
 The lifetime of the Recommended Addresses are associated with that of the containing OPTION\_IAPREFIX and its associated lease. Clients SHOULD set the valid lifetime and preferred lifetime ({{RFC4862}}) for Recommended Addresses to the remaining lifetime of the DHCPv6 lease associated with the OPTION\_IAPREFIX.
 
-If a client had previously received a Recommended Address for a prefix but an subsequent advertisement for the same OPTION\_IAPREFIX no longer contains it, the client SHOULD deprecate the address from its interface, such as by setting the preferred-lifetime of the address to 0 but leave the valid-lifetime as the remaining lifetime of the associated DHCPv6 lease.
+If a client had previously received a Recommended Address for a prefix but a subsequent advertisement for the same OPTION\_IAPREFIX no longer contains it, the client SHOULD deprecate the address from its interface, such as by setting the preferred-lifetime of the address to 0 but leave the valid-lifetime as the remaining lifetime of the associated DHCPv6 lease.
 
 
 # Relationship to Prefix Exclude Option
@@ -132,7 +132,7 @@ Cases where an operator may choose to deploy as an alternative to using IA\_NA:
 * Client hosts only support IA\_PD and not IA\_NA but the operator wishes to continue to have at least one known /128 address on the host.
 * Client hosts that support IA\_PD (such as IPv6 CE routers) and which also need an address on which they can be managed.
 
-The alternatives for having both a IA\_PD /64 and an IA\_NA /128 for a client host is to use either a larger /63 prefix (with half of it only being used sparselyu for the /128) or to allocate the /64 and /128 from disjoint space. This latter scenario increases FIB count.  Both of these alternatives require clients to support both IA\_PD and IA\_NA.
+The alternatives for having both a IA\_PD /64 and an IA\_NA /128 for a client host is to use either a larger /63 prefix (with half of it only being used sparsely for the /128) or to allocate the /64 and /128 from disjoint space. This latter scenario increases FIB count.  Both of these alternatives require clients to support both IA\_PD and IA\_NA.
 
 # Security Considerations
 
