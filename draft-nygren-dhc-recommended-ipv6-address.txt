@@ -4,8 +4,8 @@
 
 Network Working Group                                          E. Nygren
 Internet-Draft                                       Akamai Technologies
-Intended status: Standards Track                             3 July 2025
-Expires: 4 January 2026
+Intended status: Standards Track                             4 July 2025
+Expires: 5 January 2026
 
 
                  DHCPv6 Recommended IPv6 Address Option
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 January 2026.
+   This Internet-Draft will expire on 5 January 2026.
 
 Copyright Notice
 
@@ -70,17 +70,20 @@ Table of Contents
      3.2.  Option Usage
    4.  DHCPv6 Server Behavior
    5.  DHCPv6 Client Behavior
+     5.1.  Address Lifetime and Removal
    6.  Relationship to Prefix Exclude Option
-   7.  Security Considerations
-   8.  Privacy Considerations
-   9.  IANA Considerations
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   7.  Use-Cases and Suitability
+   8.  Security Considerations
+   9.  Privacy Considerations
+   10. IANA Considerations
+   11. References
+     11.1.  Normative References
+     11.2.  Informative References
    Appendix A.  Acknowledgements
    Appendix B.  Open Questions
    Appendix C.  Change History
-     C.1.  Prior to -00
+     C.1.  Changes in -01
+     C.2.  Prior to -00
    Author's Address
 
 1.  Introduction
@@ -103,7 +106,14 @@ Table of Contents
    address, the operator can encourage the host to have a particular
    /128 address that can be used for management purposes or as a service
    endpoint.  At the same time, the remainder of the prefix is available
-   for the host to use as it sees fit, such as for containers.
+   for the host to use as it sees fit, such as for containers.  For
+   example, this allows the customer of a cloud provider to get a full
+   /64 for use by a host while also allowing the customer to configure a
+   specific /128 within that /64 that they can use for managing the
+   host.
+
+   The Recommended Address(es) continue to be here are for use by the
+   host, differentiating this from PD_EXCLUDE specified in [RFC6603].
 
    The Recommended Address option is only advisory and while clients MAY
    use these /128 addresses they are not required to do so.
@@ -194,14 +204,24 @@ Table of Contents
    address(es) fall within the bounds of the associated prefix and any
    outside MUST be ignored.
 
-   If a client had previously received a Recommended Address for a
-   prefix but an subsequent advertisement for the same OPTION_IAPREFIX
-   no longer contains it, the client SHOULD remove the address from its
-   interface.
-
    Clients MAY also assign SLAAC addresses such as temporary addresses
    within the prefix.  While clients MAY use Recommended Addresses as a
    preferred source address they are not required to do so.
+
+5.1.  Address Lifetime and Removal
+
+   The lifetime of the Recommended Addresses are associated with that of
+   the containing OPTION_IAPREFIX and its associated lease.  Clients
+   SHOULD set the valid lifetime and preferred lifetime ([RFC4862]) for
+   Recommended Addresses to the remaining lifetime of the DHCPv6 lease
+   associated with the OPTION_IAPREFIX.
+
+   If a client had previously received a Recommended Address for a
+   prefix but an subsequent advertisement for the same OPTION_IAPREFIX
+   no longer contains it, the client SHOULD deprecate the address from
+   its interface, such as by setting the preferred-lifetime of the
+   address to 0 but leave the valid-lifetime as the remaining lifetime
+   of the associated DHCPv6 lease.
 
 6.  Relationship to Prefix Exclude Option
 
@@ -214,7 +234,26 @@ Table of Contents
    IA_NA within an excluded prefix, but that was thought to be too
    messy.
 
-7.  Security Considerations
+7.  Use-Cases and Suitability
+
+   Cases where an operator may choose to deploy as an alternative to
+   using IA_NA:
+
+   *  Client hosts only support IA_PD and not IA_NA but the operator
+      wishes to continue to have at least one known /128 address on the
+      host.
+
+   *  Client hosts that support IA_PD (such as IPv6 CE routers) and
+      which also need an address on which they can be managed.
+
+   The alternatives for having both a IA_PD /64 and an IA_NA /128 for a
+   client host is to use either a larger /63 prefix (with half of it
+   only being used sparselyu for the /128) or to allocate the /64 and
+   /128 from disjoint space.  This latter scenario increases FIB count.
+   Both of these alternatives require clients to support both IA_PD and
+   IA_NA.
+
+8.  Security Considerations
 
    The Recommended Address option is subject to the same authentication
    and security mechanisms as the base DHCPv6 protocol.  Deployments
@@ -226,7 +265,7 @@ Table of Contents
    [RFC4941] and as such may be easier for attackers to find while
    scanning IPv6 address space.
 
-8.  Privacy Considerations
+9.  Privacy Considerations
 
    Recommended Addresses are primarily intended for use in managed
    environments such as data centers and cloud providers.
@@ -239,7 +278,7 @@ Table of Contents
    to select.  Clients configured to use [RFC4941] Privacy Addresses or
    similar scheme may chose to prefer those as a default source address.
 
-9.  IANA Considerations
+10.  IANA Considerations
 
    This document requests IANA to assign a new DHCPv6 option code for
    the Recommended Address option from the "Dynamic Host Configuration
@@ -254,9 +293,9 @@ Table of Contents
 
                                   Table 1
 
-10.  References
+11.  References
 
-10.1.  Normative References
+11.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -273,12 +312,17 @@ Table of Contents
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/rfc/rfc8415>.
 
-10.2.  Informative References
+11.2.  Informative References
 
    [RFC3315]  Droms, R., Ed., Bound, J., Volz, B., Lemon, T., Perkins,
               C., and M. Carney, "Dynamic Host Configuration Protocol
               for IPv6 (DHCPv6)", RFC 3315, DOI 10.17487/RFC3315, July
               2003, <https://www.rfc-editor.org/rfc/rfc3315>.
+
+   [RFC4862]  Thomson, S., Narten, T., and T. Jinmei, "IPv6 Stateless
+              Address Autoconfiguration", RFC 4862,
+              DOI 10.17487/RFC4862, September 2007,
+              <https://www.rfc-editor.org/rfc/rfc4862>.
 
    [RFC4941]  Narten, T., Draves, R., and S. Krishnan, "Privacy
               Extensions for Stateless Address Autoconfiguration in
@@ -301,8 +345,8 @@ Table of Contents
 
 Appendix A.  Acknowledgements
 
-   Thank you to Lorenzo Colitti and others for their feedback and
-   suggestions on this document.
+   Thank you to Lorenzo Colitti, Kasper Dupont, and others for their
+   feedback and suggestions on this document.
 
 Appendix B.  Open Questions
 
@@ -325,7 +369,15 @@ Appendix C.  Change History
 
    NOTE TO RFC EDITOR: to be removed before publication.
 
-C.1.  Prior to -00
+C.1.  Changes in -01
+
+   *  Clarify handling of removal, as well as provide recommendations
+      for address lifetime.
+
+   *  Add use-cases and suitability.  Increase clarity on the use-cases
+      for hosts as well as the alternative.
+
+C.2.  Prior to -00
 
    *  Removed priority and made it very clear that this is in-addition
       to temporary addresses and does not require clients to use these
