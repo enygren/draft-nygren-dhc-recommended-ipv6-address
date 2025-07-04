@@ -29,6 +29,7 @@ informative:
   RFC7824:
   RFC8273:
   RFC4941:
+  RFC4862:
 
 --- abstract
 
@@ -128,7 +129,7 @@ An alternate proposal was to use IA\_NA within an excluded prefix, but that was 
 
 Cases where an operator may choose to deploy as an alternative to using IA\_NA:
 
-* Client hosts only support IA\_PD and not IA\_NA but the operator wishes to continue to have at least one known /128 address on the host. 
+* Client hosts only support IA\_PD and not IA\_NA but the operator wishes to continue to have at least one known /128 address on the host.
 * Client hosts that support IA\_PD (such as IPv6 CE routers) and which also need an address on which they can be managed.
 
 The alternatives for having both a IA\_PD /64 and an IA\_NA /128 for a client host is to use either a larger /63 prefix (with half of it only being used sparselyu for the /128) or to allocate the /64 and /128 from disjoint space. This latter scenario increases FIB count.  Both of these alternatives require clients to support both IA\_PD and IA\_NA.
