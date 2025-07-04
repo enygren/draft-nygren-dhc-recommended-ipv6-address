@@ -42,7 +42,9 @@ IA_PD within DHCPv6 {{RFC8415}} allows clients such as hosts to request IPv6 pre
 
 This document defines the Recommended Address option, which can be included within OPTION_IAPREFIX options to suggest one or more specific IPv6 addresses that clients should configure when using the associated prefix. These do not preclude the client from using other addresses within the prefix, such as for temporary addressing.
 
-This is intended for use in managed environments such as datacenters and cloud providers where the operator is configuring a host that they wish to manage or direct clients to. By providing a recommended address, the operator can encourage the host to have a particular /128 address that can be used for management purposes or as a service endpoint. At the same time, the remainder of the prefix is available for the host to use as it sees fit, such as for containers.
+This is intended for use in managed environments such as datacenters and cloud providers where the operator is configuring a host that they wish to manage or direct clients to. By providing a recommended address, the operator can encourage the host to have a particular /128 address that can be used for management purposes or as a service endpoint. At the same time, the remainder of the prefix is available for the host to use as it sees fit, such as for containers. For example, this allows the customer of a cloud provider to get a full /64 for use by a host while also allowing the customer to configure a specific /128 within that /64 that they can use for managing the host.
+
+The Recommended Address(es) continue to be here are for use by the host, differentiating this from PD\_EXCLUDE specified in {{RFC6603}}.
 
 The Recommended Address option is only advisory and while clients MAY use these /128 addresses they are not required to do so.
 
@@ -106,9 +108,14 @@ Clients configured to accept Recommended Addresses SHOULD configure the Recommen
 
 Prior to using the address, clients MUST validate that recommended address(es) fall within the bounds of the associated prefix and any outside MUST be ignored.
 
-If a client had previously received a Recommended Address for a prefix but an subsequent advertisement for the same OPTION\_IAPREFIX no longer contains it, the client SHOULD remove the address from its interface.
-
 Clients MAY also assign SLAAC addresses such as temporary addresses within the prefix. While clients MAY use Recommended Addresses as a preferred source address they are not required to do so.
+
+## Address Lifetime and Removal
+
+The lifetime of the Recommended Addresses are associated with that of the containing OPTION\_IAPREFIX and its associated lease. Clients SHOULD set the valid lifetime and preferred lifetime ({{RFC4862}}) for Recommended Addresses to the remaining lifetime of the DHCPv6 lease associated with the OPTION\_IAPREFIX.
+
+If a client had previously received a Recommended Address for a prefix but an subsequent advertisement for the same OPTION\_IAPREFIX no longer contains it, the client SHOULD deprecate the address from its interface, such as by setting the preferred-lifetime of the address to 0 but leave the valid-lifetime as the remaining lifetime of the associated DHCPv6 lease.
+
 
 # Relationship to Prefix Exclude Option
 
@@ -116,6 +123,15 @@ Unlike {{RFC6603}} which specifies a sub-prefix to exclude from the delegated pr
 
 To be removed prior to publication:
 An alternate proposal was to use IA\_NA within an excluded prefix, but that was thought to be too messy.
+
+# Use-Cases and Suitability
+
+Cases where an operator may choose to deploy as an alternative to using IA\_NA:
+
+* Client hosts only support IA\_PD and not IA\_NA but the operator wishes to continue to have at least one known /128 address on the host. 
+* Client hosts that support IA\_PD (such as IPv6 CE routers) and which also need an address on which they can be managed.
+
+The alternatives for having both a IA\_PD /64 and an IA\_NA /128 for a client host is to use either a larger /63 prefix (with half of it only being used sparselyu for the /128) or to allocate the /64 and /128 from disjoint space. This latter scenario increases FIB count.  Both of these alternatives require clients to support both IA\_PD and IA\_NA.
 
 # Security Considerations
 
@@ -142,7 +158,7 @@ This document requests IANA to assign a new DHCPv6 option code for the Recommend
 
 # Acknowledgements
 
-Thank you to Lorenzo Colitti and others for their feedback and suggestions on this document.
+Thank you to Lorenzo Colitti, Kasper Dupont, and others for their feedback and suggestions on this document.
 
 # Open Questions
 
@@ -159,6 +175,12 @@ Some open questions for discussions include:
 
 NOTE TO RFC EDITOR: to be removed before publication.
 
+## Changes in -01
+
+* Clarify handling of removal, as well as provide recommendations for address lifetime.
+* Add use-cases and suitability. Increase clarity on the use-cases for hosts as well as the alternative.
+
 ## Prior to -00
 
 * Removed priority and made it very clear that this is in-addition to temporary addresses and does not require clients to use these as a source address.
+
