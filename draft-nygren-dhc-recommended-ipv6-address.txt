@@ -112,8 +112,8 @@ Table of Contents
    specific /128 within that /64 that they can use for managing the
    host.
 
-   The Recommended Address(es) continue to be here are for use by the
-   host, differentiating this from PD_EXCLUDE specified in [RFC6603].
+   The Recommended Address(es) continue to be for use by the host,
+   differentiating this from PD_EXCLUDE specified in [RFC6603].
 
    The Recommended Address option is only advisory and while clients MAY
    use these /128 addresses they are not required to do so.
@@ -130,7 +130,7 @@ Table of Contents
 
    The Recommended Address option provides a mechanism for DHCPv6
    servers to suggest one or more specific IPv6 addresses within an
-   assigned prefix that host clients should use on the their interface.
+   assigned prefix that host clients should use on their interface.
 
 3.1.  Option Format
 

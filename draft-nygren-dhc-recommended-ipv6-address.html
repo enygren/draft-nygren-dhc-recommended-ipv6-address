@@ -1226,7 +1226,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-1-1">IA_PD within DHCPv6 <span>[<a href="#RFC8415" class="cite xref">RFC8415</a>]</span> allows clients such as hosts to request IPv6 prefixes, typically for delegation to downstream networks or interfaces. In scenarios such as Unique Prefix Per Host <span>[<a href="#RFC8273" class="cite xref">RFC8273</a>]</span> the host is given the entire prefix and is free to use addresses from it as it sees fit.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">This document defines the Recommended Address option, which can be included within OPTION_IAPREFIX options to suggest one or more specific IPv6 addresses that clients should configure when using the associated prefix. These do not preclude the client from using other addresses within the prefix, such as for temporary addressing.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">This is intended for use in managed environments such as datacenters and cloud providers where the operator is configuring a host that they wish to manage or direct clients to. By providing a recommended address, the operator can encourage the host to have a particular /128 address that can be used for management purposes or as a service endpoint. At the same time, the remainder of the prefix is available for the host to use as it sees fit, such as for containers. For example, this allows the customer of a cloud provider to get a full /64 for use by a host while also allowing the customer to configure a specific /128 within that /64 that they can use for managing the host.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">The Recommended Address(es) continue to be here are for use by the host, differentiating this from PD_EXCLUDE specified in <span>[<a href="#RFC6603" class="cite xref">RFC6603</a>]</span>.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">The Recommended Address(es) continue to be for use by the host, differentiating this from PD_EXCLUDE specified in <span>[<a href="#RFC6603" class="cite xref">RFC6603</a>]</span>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">The Recommended Address option is only advisory and while clients <span class="bcp14">MAY</span> use these /128 addresses they are not required to do so.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1246,7 +1246,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-recommended-address-option">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-recommended-address-option" class="section-name selfRef">Recommended Address Option</a>
       </h2>
-<p id="section-3-1">The Recommended Address option provides a mechanism for DHCPv6 servers to suggest one or more specific IPv6 addresses within an assigned prefix that host clients should use on the their interface.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The Recommended Address option provides a mechanism for DHCPv6 servers to suggest one or more specific IPv6 addresses within an assigned prefix that host clients should use on their interface.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="option-format">
 <section id="section-3.1">
         <h3 id="name-option-format">
