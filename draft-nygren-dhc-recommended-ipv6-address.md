@@ -45,7 +45,7 @@ This document defines the Recommended Address option, which can be included with
 
 This is intended for use in managed environments such as datacenters and cloud providers where the operator is configuring a host that they wish to manage or direct clients to. By providing a recommended address, the operator can encourage the host to have a particular /128 address that can be used for management purposes or as a service endpoint. At the same time, the remainder of the prefix is available for the host to use as it sees fit, such as for containers. For example, this allows the customer of a cloud provider to get a full /64 for use by a host while also allowing the customer to configure a specific /128 within that /64 that they can use for managing the host.
 
-The Recommended Address(es) continue to be here are for use by the host, differentiating this from PD\_EXCLUDE specified in {{RFC6603}}.
+The Recommended Address(es) continue to be for use by the host, differentiating this from PD\_EXCLUDE specified in {{RFC6603}}.
 
 The Recommended Address option is only advisory and while clients MAY use these /128 addresses they are not required to do so.
 
@@ -55,7 +55,7 @@ The Recommended Address option is only advisory and while clients MAY use these 
 
 # Recommended Address Option
 
-The Recommended Address option provides a mechanism for DHCPv6 servers to suggest one or more specific IPv6 addresses within an assigned prefix that host clients should use on the their interface.
+The Recommended Address option provides a mechanism for DHCPv6 servers to suggest one or more specific IPv6 addresses within an assigned prefix that host clients should use on their interface.
 
 ## Option Format
 
