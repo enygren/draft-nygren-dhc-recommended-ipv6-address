@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-03T01:18:24.014713+00:00",
+  "timestamp": "2025-07-06T01:25:17.708151+00:00",
   "repo": "enygren/draft-nygren-dhc-recommended-ipv6-address",
   "labels": [
     {
@@ -49,6 +49,38 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOO3Zshc6-xV-a",
+      "title": "Feedback from Lorenzo",
+      "url": "https://github.com/enygren/draft-nygren-dhc-recommended-ipv6-address/issues/1",
+      "state": "CLOSED",
+      "author": "enygren",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "From Lorenzo Colitti:\n\nI noticed that there is no mention of the lifetimes of the addresses, or how they are renewed. From reading the text I'd guess that addresses have exactly the same lifetimes as the prefix that encloses them, but it seems that the draft should explicitly say that.\n\nIt would probably make sense for the draft to say when networks should use this option instead of IA_NA. Your email mentions that this option avoids the need for separate FIB entries for the IA_NA and IA_PD. Presumably another reason would be that it simplifies client code, because the client does not need to manage the lifetimes of and renew the address(es) independently from the prefix. I'd guess maybe it's possible that there are clients that don't implement IA_NA.\n\nIt occurs to me that this could be used for IPv6 CE routers as well. CE routers always need to run DHCPv6 PD, and ISP-managed CE routers additionally need to use IA_NA to get an address on which they can be managed. This option could be used instead.",
+      "createdAt": "2025-07-03T20:47:10Z",
+      "updatedAt": "2025-07-04T15:32:30Z",
+      "closedAt": "2025-07-04T15:32:30Z",
+      "comments": [
+        {
+          "author": "enygren",
+          "authorAssociation": "OWNER",
+          "body": "I agree with all three points and will include in the -01",
+          "createdAt": "2025-07-03T20:48:14Z",
+          "updatedAt": "2025-07-03T20:48:14Z"
+        },
+        {
+          "author": "enygren",
+          "authorAssociation": "OWNER",
+          "body": "Resolved in commit b753235",
+          "createdAt": "2025-07-04T15:32:30Z",
+          "updatedAt": "2025-07-04T15:32:30Z"
+        }
+      ]
+    }
+  ],
   "pulls": []
 }
